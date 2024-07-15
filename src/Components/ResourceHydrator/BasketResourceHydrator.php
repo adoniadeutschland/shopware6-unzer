@@ -89,6 +89,10 @@ class BasketResourceHydrator implements ResourceHydratorInterface
 
         /** @var OrderLineItemEntity $lineItem */
         foreach ($lineItemCollection as $lineItem) {
+            if ($lineItem->getProductId() === null && $lineItem->getParentId() === null) {
+                continue;
+            }
+            
             if ($this->isCustomProduct($lineItemCollection, $lineItem)) {
                 continue;
             }

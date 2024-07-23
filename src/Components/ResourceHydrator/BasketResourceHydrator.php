@@ -222,6 +222,9 @@ class BasketResourceHydrator implements ResourceHydratorInterface
     protected function getAmount($lineItem, float $price): float
     {
         if ($price < 0 && $this->isPromotionLineItem($lineItem)) {
+            if ($lineItem->getQuantity() > 1) {
+                $price = $price / $lineItem->getQuantity();
+            }
             return $price * -1;
         }
 
